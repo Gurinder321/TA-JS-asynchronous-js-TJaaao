@@ -54,19 +54,21 @@ function runWhileLoopForNSeconds(sec) {
     now = Date.now();
   }
 }
-console.log('First');
+console.log('First'); // 0m - First
 setTimeout(function exec() {
   console.log('Second');
-}, 0);
+}, 0); // 3001m - Second
 runWhileLoopForNSeconds(3);
-console.log('Third');
+console.log('Third'); // 3000m - Third
 ```
 
 6. Convert the synchronous code given below into asynchronous. If you execute this code it will print one, two and three. Change the code in such a way that it should print `one`, `three` and `two`. You are not allowed to move the code up and down.
 
 ```js
 console.log('one');
+setTimeout(function () => {
 console.log('two');
+})
 console.log('three');
 ```
 
