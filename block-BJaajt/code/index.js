@@ -1,58 +1,66 @@
-const img = document.querySelector('img');
-const name = document.querySelector('h3');
-const workingAt = document.querySelector('p');
-const following = document.querySelector('.following');
-const followers = document.querySelector('.followers');
-const input = document.querySelector('input');
+let input = document.querySelector('input');
+let info = document.querySelector('.info');
+let userImage = document.querySelector('.info img');
+let userName = document.querySelector('.info h3');
+let userLogin = document.querySelector('.info p');
+let followersUL = document.querySelector('.followers');
+let followingUL = document.querySelector('.following');
 
-function displayUI(data) {
-  img.src = data.avatar_url;
-  name.innerText = data.name;
-  workingAt.innerText = data.company;
-  following.innerText = `Following: ${data.following}`;
-  followers.innerText = `Followers: ${data.followers}`;
+function fetch(url, successHandler) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.onload = () => successHandler(JSON.parse(xhr.response));
+  xhr.onerror = function () {
+    console.log('Something went wrong!');
+  };
+  xhr.send();
 }
 
-function handleChange(event) {
-  if (event.keyCode === 13) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://api.github.com/users/${event.target.value}`);
-    xhr.onload = function () {
-      let userData = JSON.parse(xhr.response);
-      displayUI(userData);
-    };
+function displayExtraInfo(url, rootElm) {
+  rootElm.innerText = '';
+  fetch(url, function (followersList) {
+    let topFive = followersList.slice(0, 5);
 
-    xhr.onerror = function () {
-      console.log('Something went wrong');
-    };
-    xhr.send();
-    event.target.value = '';
+    topFive.forEach((info) => {
+      let li = document.createElement('li');
+      let img = document.createElement('img');
+      img.src = info.avatar_url;
+      img.alt = info.name;
+      li.append(img);
+      followersUL.append(li);
+    });
+  });
+}
+
+function handleDisplay(userInfo) {
+  userImage.src = userInfo.avatar_url;
+  userImage.alt = userInfo.name;
+  userName.innerText = userInfo.name;
+  userLogin.innerText = '@' + userInfo.login;
+  displayExtraInfo(`https://api.github.com/users/${userInfo.login}/followers`, followersUL);
+  displayExtraInfo(`https://api.github.com/users/${userInfo.login}/following`, followingUL);
+}
+
+function handleInput(event) {
+  if (event.keyCode === 13 && input.value) {
+    const url = 'https://api.github.com/users/';
+    let username = input.value;
+
+    fetch(url + username, handleDisplay);
+
+    input.value = '';
   }
 }
 
-input.addEventListener('keyup', handleChange);
+input.addEventListener('keydown', handleInput);
 
-// sg7icTdlGEC9Lrs5SNj4rUj9P_tC80jzo9QTrpD4ilY
-// https://api.unsplash.com/photos/random
+let catsImage = document.querySelector('.cats img');
+let catsButton = document.querySelector('.cats button');
 
-// Random Cat Image
-// const img = document.querySelector('.cat-image');
-// const reload = document.querySelector('.reload');
-// reload.addEventListener('click', () => {
-//   let xhr = new XMLHttpRequest();
-//   xhr.open(
-//     'GET',
-//     `https://api.thecatapi.com/v1/images/search/?api_key=967d0502-0314-45b9-b3dc-5fd40d1c3e6`
-//   );
+function handleClick() {
+  fetch(`https://api.thecatapi.com/v1/images/search?limit=1&size=full`, function (catInfo) {
+    catsImage.src = catInfo[0].url;
+  });
+}
 
-//   xhr.onload = function () {
-//     let imageData = JSON.parse(xhr.response);
-//     img.src = imageData.url;
-//   };
-
-//   xhr.onerror = function () {
-//     console.log('Something went wrong');
-//   };
-
-//   xhr.send();
-// });
+catsButton.addEventListener('click', handleClick);
