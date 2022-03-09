@@ -3,42 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <title>Canvas resize</title>
-    <style>
-      img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-      }
-      input {
-        margin-bottom: 2rem;
-        padding: 0.25rem 0.5rem;
-      }
-    </style>
+    <title>Document</title>
   </head>
   <body>
-    <input type="text" placeholder="Github Username" />
-    <div>
-      <img
-        src="https://images.unsplash.com/photo-1646731753590-559f68754f31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80"
-        alt=""
-      />
-      <h3>Arya Stark</h3>
-      <p>@facebook</p>
-      <ul>
-        <li class="followers">Followers: 8699</li>
-        <li class="following">Following: 171</li>
-      </ul>
+    <input type="text" placeholder="Enter Github Username" />
+    <div class="info">
+      <img src="" alt="" />
+      <h3>Arya</h3>
+      <p>twitter</p>
     </div>
-
-    <!-- Generate Random Cat Image -->
-    <div>
-      <button class="reload">Get New Image</button>
-
-      <img class="cat-image" src="" alt="" />
+    <div class="details">
+      <div class="list">
+        <p>Followers</p>
+        <ul class="followers">
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+        </ul>
+      </div>
+      <div class="list">
+        <p>Following</p>
+        <ul class="following">
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+          <li>
+            <img src="" alt="" />
+          </li>
+        </ul>
+      </div>
+      <div class="cats">
+        <div>
+          <button>Get New Cat</button>
+        </div>
+        <img src="" alt="" />
+      </div>
     </div>
-
     <script src="index.js"></script>
   </body>
 </html>
