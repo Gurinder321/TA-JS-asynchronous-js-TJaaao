@@ -1,19 +1,36 @@
 1. Create a promise. Have it resolve with a value of `Promise Resolved!` in resolve after a delay of 1000ms, using `setTimeout`. Print the contents of the promise after it has been resolved by passing `console.log` to `.then`
 
 ```js
-// Your code
+new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000);
+}).then(() => {
+  console.log('Promise Resolved!');
+});
 ```
 
 2. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch`
 
 ```js
-// Your code
+new Promise((resolve, reject) => {
+  setTimeout(reject, 1000);
+}).catch(() => {
+  console.log('Rejected Promise!');
+});
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
 
 ```js
-// Your code
+Promise.reject(new Error('Rejected Promise!'))
+  .then(
+    function () {},
+    function (error) {
+      console.error(error);
+    }
+  )
+  .finally(() => {
+    console.log('Promise Settled!');
+  });
 ```
 
 4. What will be the output of the code below.
@@ -28,12 +45,18 @@ setTimeout(() => console.log('B'), 0); // callback queue
 Promise.resolve().then(() => console.log('C'));
 
 console.log('D');
+
+// A, D, C, B
 ```
 
 5. Write a function named `wait` that accepts `time` in ms returns a promise. The promise gets resolved after given time.
 
 ```js
-// Your code
+let wait = new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000);
+}).then(() => {
+  console.log('Promise Resolved!');
+});
 ```
 
 6. Do the following:
@@ -46,7 +69,19 @@ console.log('D');
 - Catch the error using `.catch`
 
 ```js
-// Your code
+const myPromise = new Promise((resolve, reject) => {
+  let num = 21;
+
+  if (num > 100) {
+    resolve('Greater than 100');
+  } else {
+    reject('Less than 100');
+  }
+});
+
+myPromise.then((message) => {
+  console.log('message');
+});
 ```
 
 7. Do the following:
