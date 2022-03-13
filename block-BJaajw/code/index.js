@@ -1,7 +1,21 @@
 let url = `https://api.spaceflightnewsapi.net/v3/articles?_limit=30`;
 let newsElm = document.querySelector('.news');
 let select = document.querySelector('select');
+let errorElm = document.querySelector('.error-message');
+let main = document.querySelector('.main');
 let allNews = [];
+
+function handleErrorMessage(message = 'Something went wrong') {
+  main.style.display = 'none';
+  errorElm.innerText = message;
+}
+
+function handleSpinner(status = false) {
+  if (status) {
+    newsElm.innerHTML = `<div class="spinner"></div><div class="donut"></div></div>`;
+  }
+}
+
 /* <li>
   <img
     src="https://www.ctvnews.ca/polopoly_fs/1.5816492.1647046791!/httpImage/image.jpg_gen/derivatives/landscape_1020/image.jpg"
@@ -47,22 +61,30 @@ function displayOptions(sources) {
   });
 }
 
-fetch(url)
-  .then((response) => response.json())
-  .then((news) => {
-    allNews = news;
-    renderNews(news);
-    let allSources = new Set(news.map((n) => n.newsSite));
-    displayOptions(allSources);
-  });
+function init() {
+  handleSpinner(true);
+  fetch(url)
+    .then((response) => response.json())
+    .then((news) => {
+      isLoading = true;
+      handleSpinner();
+      allNews = news;
+      renderNews(news);
+      let allSources = new Set(news.map((n) => n.newsSite));
+      displayOptions(allSources);
+    });
+}
 
 select.addEventListener('change', (event) => {
   let source = event.target.value.trim();
-  let filterNews;
+
   if (source) {
-    filterNews = allNews.filter((news) => news.newsSite === source);
+    var filterNews = allNews.filter((news) => news.newsSite === source);
   } else {
     filterNews = allNews;
   }
   renderNews(filterNews);
 });
+
+init();
+handleErrorMessage();
