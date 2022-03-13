@@ -84,19 +84,19 @@ form {
 .container {
   margin: 10px 72px;
 }
-.flex {
+li {
   display: flex;
   justify-content: center;
   margin: 40px 0;
 }
-.image {
+img {
   width: 50%;
 }
-.text-content {
+
+div {
   margin: 5px 20px;
-  width: 45%;
 }
-h4 {
+span {
   background-color: #357d7f;
   color: white;
   border-radius: 20px;
