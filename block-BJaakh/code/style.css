@@ -1,0 +1,11 @@
+li {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+span {
+  padding-left: 20px;
+}
+input {
+  margin-right: 10px;
+}
